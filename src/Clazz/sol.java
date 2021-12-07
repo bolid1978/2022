@@ -25,7 +25,7 @@ public class sol {
                 byte[] buffer = Files.readAllBytes(Paths.get(name));
                 clazz = defineClass(null, buffer, 0, buffer.length);
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printStackTrace();//
             }
 
             return clazz;
