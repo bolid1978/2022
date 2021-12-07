@@ -44,7 +44,7 @@ public class sol {
         for (File el:files){
             if(el.isFile() && el.getPath().contains(".class")){
                 MyClassLoader myClassLoader = new MyClassLoader();
-                Class<?> clazz = myClassLoader.loadClass(el.getName());
+                Class<?> clazz = myClassLoader.loadClass(el.getAbsolutePath());
                 if(Animal.class.isAssignableFrom(clazz)){
                    try {
                        Constructor<?> constructor = clazz.getConstructor();
