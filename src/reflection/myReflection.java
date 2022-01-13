@@ -3,6 +3,7 @@ package reflection;
 import javax.crypto.MacSpi;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class myReflection {
     public static void main(String[] args)  {
@@ -35,7 +36,27 @@ public class myReflection {
         //------взять родителей
         System.out.println(arrayListClass.getSuperclass());
         //------взять инткрфейса
-        System.out.println(arrayListClass.getInterfaces());
+        System.out.println(Arrays.toString(arrayListClass.getInterfaces()));
+
+        // ---------информация о классе
+        //-----------------------------
+
+         //--------взять публичные поля класса и суперкласса
+        System.out.println(Arrays.toString(arrayListClass.getFields()));
+        //--------взять все поля но только своего класс
+        System.out.println(Arrays.toString(arrayListClass.getDeclaredFields()));
+         //---вернёт конкретное поле с конкретным именем или метод  но бросает исклюение если имя не найдено
+         //arrayListClass.getField("name field");
+        // arrayListClass.getDeclaredField("name field");
+        //--------------------------------------------------------
+
+        //------взять публичные методы класса и суперкласса
+        System.out.println(Arrays.toString(arrayListClass.getMethods()));
+        //------взять все методы но только своего класс
+        System.out.println(Arrays.toString(arrayListClass.getDeclaredMethods()));
+        //-------------------------------------------------------------
+
+        //--------------конструкторы
 
 
 
