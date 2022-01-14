@@ -1,6 +1,8 @@
 package reflection;
 
 import javax.crypto.MacSpi;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,8 +59,21 @@ public class myReflection {
         //-------------------------------------------------------------
 
         //--------------конструкторы
+        Constructor [] constructor = arrayListClass.getConstructors();
+        Constructor [] constructorDecl = arrayListClass.getDeclaredConstructors();
+        try {
+            Constructor <?> constructorParam = arrayListClass.getConstructor(int.class);
+        }
+         catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
-
+        //--------- анотоции к методам------------------
+        Method [] method = arrayListClass.getMethods();
+        for (Method el:method){
+            System.out.print("аннотация метода " + el.getName() + " ");
+            System.out.println(Arrays.toString(el.getAnnotations()));
+        }
 
     }
 
