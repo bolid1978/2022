@@ -14,7 +14,7 @@ public class jTest {
 //            user1 = new Persons("Марина", 34, Sex.FEMALE);
 //            user2= new Persons("Евгений", 35, Sex.MALE);
 //            user3 = new Persons("Алина", 7, Sex.FEMALE);
-    }
+    }///
     @Test
     void testGetAllUsers() {
 
