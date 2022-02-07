@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="junit-4.13">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/libforTest/libonlynomodule/junit-4.13.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/libforTest/libonlynomodule/junit-4.131.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
