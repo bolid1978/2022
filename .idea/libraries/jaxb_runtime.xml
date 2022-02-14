@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jaxb-runtime">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../../Program Files/JetBrains/IntelliJ IDEA Community Edition 2020.1.2/lib/jaxb-runtime.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

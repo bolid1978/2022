@@ -1,19 +1,14 @@
 package JUnit;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static JUnit.Persons.allUsers;
-import static org.junit.jupiter.api.Assertions.*;
 
 class PersonsTest {
 //     Persons user = new Persons("Евгений", 35, Sex.MALE);
@@ -22,6 +17,7 @@ class PersonsTest {
      Persons user1 ;
      Persons user2 ;
      Persons user3 ;
+    Assertions Assert = null;
 ////    List<Persons> expected = new ArrayList<>();
     @BeforeEach
     public void setUp() throws Exception {
@@ -81,6 +77,7 @@ class PersonsTest {
         List<Persons> actual2 = new ArrayList<>();
         actual2.add(user1);
         actual2.add(user3);
+        Assertions Assert = null;
         Assert.assertEquals(expectedMale,actual );
         Assert.assertEquals(expectedFemale,actual2 );
 
@@ -92,6 +89,7 @@ class PersonsTest {
 //        Persons user3 =  new Persons("Lаша", 23, Sex.FEMALE);
 
         List<Persons> expectedMale = Persons.getAllUsers();
+        Assertions Assert = null;
         Assert.assertNotNull(expectedMale);
 
     }
