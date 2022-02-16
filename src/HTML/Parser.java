@@ -9,7 +9,10 @@ import java.io.IOException;
 
 public class Parser {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
+         Document document = Jsoup.connect("https://javarush.ru/groups/posts/2007-legkiy-parsing-html-s-pomojshjhju-jsoup").get();
+        System.out.println(document.title());
+        System.out.println(document);
 
         // Parse HTML String using JSoup library
         String HTMLSTring = "<!DOCTYPE html>"
