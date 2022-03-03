@@ -1,6 +1,6 @@
 package GreedyAlgorithms;
 
-import javax.swing.text.html.parser.Entity;
+
 import java.util.*;
 
 public class Greedy {
@@ -23,30 +23,18 @@ public class Greedy {
         int allCoint = 0;
         boolean flag = false;
         prinf(cush);
-        TreeMap<Integer,Integer> sortCush = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-
-                return o2.compareTo(o1);
-            }
-        });
+        TreeMap<Integer,Integer> sortCush = new TreeMap<>(Comparator.reverseOrder());
         sortCush.putAll(cush);
         System.out.println("-----------");
        // prinf(sortCush);
 
        //---------------------------
-        TreeMap<Integer,Integer> sortCushRes = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-
-                return o2.compareTo(o1);
-            }
-        });
-        Iterator iterator = sortCush.entrySet().iterator();
+        TreeMap<Integer,Integer> sortCushRes = new TreeMap<>(Comparator.reverseOrder());
+        Iterator<Map.Entry<Integer, Integer>> iterator = sortCush.entrySet().iterator();
 
 
         while (iterator.hasNext()){
-            Map.Entry<Integer ,Integer> entry = (Map.Entry<Integer ,Integer>)iterator.next();
+            Map.Entry<Integer ,Integer> entry = iterator.next();
             //-------берём бумажку
             int coint = entry.getKey();
             //-------берём количество бумажек данного номинала
