@@ -19,7 +19,7 @@ public class Greedy {
     }
 
     public static void main(String[] args) {
-        int allSum = 5025;
+        int allSum = 600;
         int allCoint = 0;
         boolean flag = false;
         prinf(cush);
@@ -60,7 +60,12 @@ public class Greedy {
                 if(sub == 0){
                     //  ---- кладём монетку и выходим то есть отдём мэпу ставим флаг что всё получилось сумма набрана
                     sortCush.put(coint, qualCoint - 1);
-                    sortCushRes.put(coint,sortCushRes.get(coint) + 1);
+                    if(sortCushRes.containsKey(coint)){
+                        sortCushRes.put(coint,sortCushRes.get(coint) + 1);
+                    }
+                    else{
+                    sortCushRes.put(coint,1);
+                    }
                     flag = true;
                     System.out.println(sortCushRes);
                     break;
@@ -77,7 +82,7 @@ public class Greedy {
                         sortCushRes.put(coint,1);
                     }
                     sortCush.put(coint, qualCoint - 1);
-                   // allSum -= allCoint;
+
                     iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
 
                 }
