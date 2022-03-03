@@ -1,6 +1,6 @@
 package GreedyAlgorithms;
 
-import javax.swing.text.html.parser.Entity;
+
 import java.util.*;
 
 public class Greedy {
@@ -19,38 +19,29 @@ public class Greedy {
     }
 
     public static void main(String[] args) {
-        int allSum = 600;
+        int allSum = 565;
         int allCoint = 0;
         boolean flag = false;
+        boolean flagAdd = false;
         prinf(cush);
-        TreeMap<Integer,Integer> sortCush = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-
-                return o2.compareTo(o1);
-            }
-        });
+        TreeMap<Integer,Integer> sortCush = new TreeMap<>(Comparator.reverseOrder());
         sortCush.putAll(cush);
         System.out.println("-----------");
        // prinf(sortCush);
 
        //---------------------------
-        TreeMap<Integer,Integer> sortCushRes = new TreeMap<>(new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-
-                return o2.compareTo(o1);
-            }
-        });
-        Iterator iterator = sortCush.entrySet().iterator();
-
+        TreeMap<Integer,Integer> sortCushRes = new TreeMap<>(Comparator.reverseOrder());
+        Iterator<Map.Entry<Integer, Integer>> iterator = sortCush.entrySet().iterator();
+        Map.Entry<Integer ,Integer> entry = null;
 
         while (iterator.hasNext()){
-            Map.Entry<Integer ,Integer> entry = (Map.Entry<Integer ,Integer>)iterator.next();
+            if(!flagAdd )  entry = iterator.next();
+
             //-------берём бумажку
             int coint = entry.getKey();
             //-------берём количество бумажек данного номинала
             int qualCoint = entry.getValue();
+
             //------если бумажки есть
             if(qualCoint > 0){
                 //----------складываем с общим числом монет
@@ -82,20 +73,20 @@ public class Greedy {
                         sortCushRes.put(coint,1);
                     }
                     sortCush.put(coint, qualCoint - 1);
-
-                    iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
+                    flagAdd = true;
+//                    iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
 
                 }
                 //---------если результат вычитания меньше нуля то есть перебор
                 else {
                     //----------из общей суммы уже набранных монет вычитаем эту монету то есть возвращаем назад
                     // и нужно взять следущию бумажку наминалом поменьше
-
+                       flagAdd = false;
                        allCoint -= coint;
                 }
 
             }
-
+            if(qualCoint == 0) flagAdd = false;
         }
 
         //----------всю мапу пробежали если сумма набалось тогда ок если нет исключение
