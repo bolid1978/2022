@@ -4,7 +4,7 @@ import javax.swing.text.html.parser.Entity;
 import java.util.*;
 
 public class Greedy {
-    static int a = 12;
+
 
     static HashMap<Integer, Integer> cush = new HashMap<>();
     static {
@@ -19,7 +19,7 @@ public class Greedy {
     }
 
     public static void main(String[] args) {
-        int allSum = 700;
+        int allSum = 5025;
         int allCoint = 0;
         boolean flag = false;
         prinf(cush);
@@ -32,7 +32,7 @@ public class Greedy {
         });
         sortCush.putAll(cush);
         System.out.println("-----------");
-        prinf(sortCush);
+       // prinf(sortCush);
 
        //---------------------------
         TreeMap<Integer,Integer> sortCushRes = new TreeMap<>(new Comparator<Integer>() {
@@ -43,6 +43,7 @@ public class Greedy {
             }
         });
         Iterator iterator = sortCush.entrySet().iterator();
+
 
         while (iterator.hasNext()){
             Map.Entry<Integer ,Integer> entry = (Map.Entry<Integer ,Integer>)iterator.next();
@@ -58,19 +59,33 @@ public class Greedy {
                 //-------если результать вычитания из общей суммы 0
                 if(sub == 0){
                     //  ---- кладём монетку и выходим то есть отдём мэпу ставим флаг что всё получилось сумма набрана
-                    sortCushRes.put(coint,qualCoint + 1);
+                    sortCush.put(coint, qualCoint - 1);
+                    sortCushRes.put(coint,sortCushRes.get(coint) + 1);
                     flag = true;
                     System.out.println(sortCushRes);
+                    break;
                 }
                 //-------если результат вычитания больше нуля то есть ещё нужно денег
                 else if(sub > 0){
-                    //-------кладём монетку в мапу вычитаем из необходимой суммы уже набраное число
-                    sortCushRes.put(coint,qualCoint + 1);
-                    allSum -= allCoint;
+                    //-------кладём монетку в мапу отавляем уже набраное число
+                    // и нужно ещё раз взять туже бумажку
+                    // и нужно удалить бумажку из манипулятора
+                    if(sortCushRes.containsKey(coint)){
+                    sortCushRes.put(coint,sortCushRes.get(coint) + 1);
+                    }
+                    else{
+                        sortCushRes.put(coint,1);
+                    }
+                    sortCush.put(coint, qualCoint - 1);
+                   // allSum -= allCoint;
+                    iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
+
                 }
                 //---------если результат вычитания меньше нуля то есть перебор
                 else {
                     //----------из общей суммы уже набранных монет вычитаем эту монету то есть возвращаем назад
+                    // и нужно взять следущию бумажку наминалом поменьше
+
                        allCoint -= coint;
                 }
 
@@ -82,10 +97,12 @@ public class Greedy {
         if(flag) {
             System.out.println("Получилось!!");
             prinf(sortCushRes);
+            System.out.println("Осталось");
+            prinf(sortCush);
 
         }
         else {
-            System.out.println("лажа");
+            System.out.println("лажа не набролось выкинуть прерывание");
         }
 
 
