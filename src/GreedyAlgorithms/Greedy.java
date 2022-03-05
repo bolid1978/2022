@@ -9,20 +9,21 @@ public class Greedy {
     static HashMap<Integer, Integer> cush = new HashMap<>();
     static {
 
-        cush.put(5, 20);
-        cush.put(10, 2);
-        cush.put(25, 8);
-        cush.put(50, 2);
-        cush.put(100, 6);
-        cush.put(250, 3);
-        cush.put(500, 7);
+        cush.put(5, 150);
+//        cush.put(10, 2);
+//        cush.put(25, 8);
+//        cush.put(50, 2);
+//        cush.put(100, 6);
+//        cush.put(250, 3);
+        cush.put(500, 3);
     }
 
     public static void main(String[] args) {
-        int allSum = 565;
+        int allSum = 550;
         int allCoint = 0;
         boolean flag = false;
         boolean flagAdd = false;
+        boolean itter = true;
         prinf(cush);
         TreeMap<Integer,Integer> sortCush = new TreeMap<>(Comparator.reverseOrder());
         sortCush.putAll(cush);
@@ -35,8 +36,8 @@ public class Greedy {
         Map.Entry<Integer ,Integer> entry = null;
 
         while (iterator.hasNext()){
-            if(!flagAdd )  entry = iterator.next();
-
+          //  if(!flagAdd )  entry = iterator.next();
+            entry = iterator.next();
             //-------берём бумажку
             int coint = entry.getKey();
             //-------берём количество бумажек данного номинала
@@ -73,20 +74,21 @@ public class Greedy {
                         sortCushRes.put(coint,1);
                     }
                     sortCush.put(coint, qualCoint - 1);
-                    flagAdd = true;
-//                    iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
+                  //  flagAdd = true;
+                    iterator = sortCush.entrySet().iterator();// это получаеться не на это место вернуться  с начала
 
                 }
                 //---------если результат вычитания меньше нуля то есть перебор
                 else {
                     //----------из общей суммы уже набранных монет вычитаем эту монету то есть возвращаем назад
                     // и нужно взять следущию бумажку наминалом поменьше
-                       flagAdd = false;
+                      // flagAdd = false;
                        allCoint -= coint;
                 }
 
             }
-            if(qualCoint == 0) flagAdd = false;
+            //if(qualCoint == 0) flagAdd = false;
+            //if(flagAdd) continue;
         }
 
         //----------всю мапу пробежали если сумма набалось тогда ок если нет исключение
