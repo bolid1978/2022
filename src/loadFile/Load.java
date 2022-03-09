@@ -14,6 +14,7 @@ public class Load {
         InputStream inputStream = url.openStream();
         Files.copy(inputStream, new File("c:\\1\\google.png").toPath());
         System.out.println();
+        System.out.println();
 
     }
 }
