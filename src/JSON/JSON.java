@@ -19,7 +19,7 @@ public class JSON {
         objectMapper.writeValue(someDateJson, someDate);
         String str = objectMapper.writeValueAsString(someDate);
         System.out.println(str);
-       // System.out.println(someDateJson.toString());
+        System.out.println(someDateJson.toString());
 
 
     }
