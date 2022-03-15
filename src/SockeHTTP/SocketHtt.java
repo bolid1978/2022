@@ -17,7 +17,7 @@ public class SocketHtt {
             URL url;
 
             try {
-                url = new URL("http://ya.ru");
+                url = new URL("http://google.com");
             } catch (MalformedURLException ex) {
                 ex.printStackTrace();
                 return;
@@ -33,9 +33,9 @@ public class SocketHtt {
 
                 writer.println("GET " + url.getPath() + " HTTP/1.1");
                 writer.println("Host: " + hostname);
-  //              writer.println("User-Agent: Simple Http Client");
+                writer.println("User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36");
                 writer.println("Accept: text/html");
-                writer.println("Accept-Language: en-US");
+    //            writer.println("Accept-Language: en-US");
 //                writer.println("Connection: close");
                 writer.println();
                 System.out.println("send out");
