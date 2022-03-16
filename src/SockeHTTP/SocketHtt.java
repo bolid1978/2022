@@ -1,8 +1,19 @@
 package SockeHTTP;
-import java.net.*;
-import java.io.*;
-public class SocketHtt {
 
+import org.apache.log4j.xml.DOMConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
+import java.net.UnknownHostException;
+
+public class SocketHtt {
+   
+    
+
+     public static final Logger LOGGERSocket = (Logger) LoggerFactory.getLogger(SocketHtt.class);
 
     /**
      * This program demonstrates a client socket application that connects to
@@ -14,6 +25,7 @@ public class SocketHtt {
 
         public static void main(String[] args) {
 
+            DOMConfigurator.configure("C:\\Users\\bolid\\IdeaProjects\\Test\\src\\log\\2.xml");
             URL url;
 
             try {
@@ -27,7 +39,7 @@ public class SocketHtt {
             int port = 80;
 
             try (Socket socket = new Socket(hostname, port)) {
-                System.out.println("create socket");
+                //Logger.infa("create socket");
                 OutputStream output = socket.getOutputStream();
                 PrintWriter writer = new PrintWriter(output, true);
 
@@ -38,23 +50,23 @@ public class SocketHtt {
     //            writer.println("Accept-Language: en-US");
 //                writer.println("Connection: close");
                 writer.println();
-                System.out.println("send out");
+                LOGGERSocket.info("send out");
                 InputStream input = socket.getInputStream();
-                System.out.println("Creat IN");
+                LOGGERSocket.info("Creat IN");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
+                    LOGGERSocket.info(line);
                 }
             } catch (UnknownHostException ex) {
 
-                System.out.println("Server not found: " + ex.getMessage());
+                LOGGERSocket.info("Server not found: " + ex.getMessage());
 
             } catch (IOException ex) {
 
-                System.out.println("I/O error: " + ex.getMessage());
+                LOGGERSocket.info("I/O error: " + ex.getMessage());
             }
         }
 }
