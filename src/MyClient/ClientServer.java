@@ -43,6 +43,29 @@ public class ClientServer {
          //--------- в нём будет осной цыкл Loop
          //----- и пускаеться это всё из run()
 
+         //-------выводит сообщение в ча что написал пользователь любой это входящее сообщение с сервера
+         protected void processIncomingMessage(){}
+
+         //-------выводит информацию о пользователе тех кто пирсоединился к чату это инфа с сервера
+         protected void informAboutAddingNewUser(){}
+
+         //-------выводит информацию о пользователе тех кто вышел из чата
+         protected void informAboutDeletingNewUser(){
+
+         }
+        //---------не понятная фигня что то снхронизирует
+        protected void notifyConnectionStatusChanged(){
+
+        }
+
+
+        protected void clientHandshake(){
+
+        }
+
+         protected void clientMainLoop(){
+
+         }
 
          @Override
          public void run() {
