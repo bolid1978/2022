@@ -10,7 +10,7 @@ import java.net.Socket;
 
 public class ClientServer {
     public static final Logger LOGGERClientServer = LoggerFactory.getLogger(ClientServer.class);
-
+    protected Connect connection;
     public static void main(String[] args) {
         DOMConfigurator.configure("C:\\Users\\bolid\\IdeaProjects\\Test\\src\\MyClient\\properties\\loger.xml");
         ClientServer clientServer = new ClientServer();
@@ -21,18 +21,10 @@ public class ClientServer {
     //------в нем ещё должна создаваться своя нить на каждое соединение и эта нить демон
     //---эта нить класс SocketThread
     void startClient() {
-        ConsolHelper.write("Введите ip адресс");
-        String ip = ConsolHelper.stringIp();
-        ConsolHelper.write("Введите порт");
-        int port = ConsolHelper.intPort();
-        try {
-            Socket socket = new Socket(ip, port);
-            LOGGERClientServer.info("Soccet create");
-        } catch (IOException e) {
-            e.printStackTrace();
-            LOGGERClientServer.warn("Soccet No create");
-        }
 
+      SocketThread socketThread = new SocketThread();
+      socketThread.setDaemon(true);
+      socketThread.start();
 
     }
 
@@ -71,6 +63,23 @@ public class ClientServer {
 
         @Override
         public void run() {
+            ConsolHelper.write("Введите ip адресс");
+            String ip = ConsolHelper.stringIp();
+            ConsolHelper.write("Введите порт");
+            int port = ConsolHelper.intPort();
+            try {
+                Socket socket = new Socket(ip, port);
+                LOGGERClientServer.info("Soccet create");
+                Connect connect = new Connect(socket);
+                LOGGERClientServer.info("Connect creat in SocketThread");
+                //----потом запускаем проверку пароля и основной цыкл
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException e) {
+                e.printStackTrace();
+                LOGGERClientServer.warn("Soccet No create");
+            }
+
 
         }
 
