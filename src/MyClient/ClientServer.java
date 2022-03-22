@@ -21,7 +21,7 @@ public class ClientServer {
     //------в нем ещё должна создаваться своя нить на каждое соединение и эта нить демон
     //---эта нить класс SocketThread
     void startClient() {
-
+      //----если нужно много клиентов разных типа боты то надо  socketThread потомков понаделать разных через фабрику выбирать например
       SocketThread socketThread = new SocketThread();
       socketThread.setDaemon(true);
       socketThread.start();
