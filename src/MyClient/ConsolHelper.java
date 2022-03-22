@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class ConsolHelper {
 
-    private static final Logger LOGGERSocket = LoggerFactory.getLogger(ConsolHelper.class);
+    private static final Logger LOGGERConsolHelper = LoggerFactory.getLogger(ConsolHelper.class);
     private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
     public static void write(String str) {
@@ -40,7 +40,7 @@ public class ConsolHelper {
 
         } catch (IOException e) {
             System.out.println("Входной поток порта не закрылся");
-            LOGGERSocket.error("Входной поток порта не закрылся");
+            LOGGERConsolHelper.error("Входной поток порта не закрылся");
         }
 
         return port;
@@ -65,7 +65,7 @@ public class ConsolHelper {
             while (true);
         } catch (Exception e) {
             System.out.println("Ошибка входного потока ip");
-            LOGGERSocket.error("Ошибка входного потока ip");
+            LOGGERConsolHelper.error("Ошибка входного потока ip");
         }
 
         return ip;

@@ -9,70 +9,72 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ClientServer {
-    public static final Logger LOGGERSocket =  LoggerFactory.getLogger(ClientServer.class);
+    public static final Logger LOGGERClientServer = LoggerFactory.getLogger(ClientServer.class);
 
     public static void main(String[] args) {
         DOMConfigurator.configure("C:\\Users\\bolid\\IdeaProjects\\Test\\src\\MyClient\\properties\\loger.xml");
-       ClientServer clientServer = new ClientServer();
-       clientServer.startClient();
+        ClientServer clientServer = new ClientServer();
+        clientServer.startClient();
 
-     }
+    }
 
-     //------в нем ещё должна создаваться своя нить на каждое соединение и эта нить демон
+    //------в нем ещё должна создаваться своя нить на каждое соединение и эта нить демон
     //---эта нить класс SocketThread
-     void startClient(){
+    void startClient() {
         ConsolHelper.write("Введите ip адресс");
         String ip = ConsolHelper.stringIp();
         ConsolHelper.write("Введите порт");
-        int  port = ConsolHelper.intPort();
+        int port = ConsolHelper.intPort();
         try {
-            Socket socket = new Socket(ip,port);
-            LOGGERSocket.info("Soccet create");
+            Socket socket = new Socket(ip, port);
+            LOGGERClientServer.info("Soccet create");
         } catch (IOException e) {
             e.printStackTrace();
-            LOGGERSocket.warn("Soccet No create");
+            LOGGERClientServer.warn("Soccet No create");
         }
-
 
 
     }
 
-     public class SocketThread extends Thread{
+    public class SocketThread extends Thread {
         //------он будет создавать сокет
         //------он будет осуществлять рукопожатие
-         //--------- в нём будет осной цыкл Loop
-         //----- и пускаеться это всё из run()
+        //--------- в нём будет осной цыкл Loop
+        //----- и пускаеться это всё из run()
 
-         //-------выводит сообщение в ча что написал пользователь любой это входящее сообщение с сервера
-         protected void processIncomingMessage(){}
+        //-------выводит сообщение в ча что написал пользователь любой это входящее сообщение с сервера
+        protected void processIncomingMessage() {
+        }
 
-         //-------выводит информацию о пользователе тех кто пирсоединился к чату это инфа с сервера
-         protected void informAboutAddingNewUser(){}
+        //-------выводит информацию о пользователе тех кто пирсоединился к чату это инфа с сервера
+        protected void informAboutAddingNewUser() {
+        }
 
-         //-------выводит информацию о пользователе тех кто вышел из чата
-         protected void informAboutDeletingNewUser(){
+        //-------выводит информацию о пользователе тех кто вышел из чата
+        protected void informAboutDeletingNewUser() {
 
-         }
+        }
+
         //---------не понятная фигня что то снхронизирует
-        protected void notifyConnectionStatusChanged(){
+        protected void notifyConnectionStatusChanged() {
 
         }
 
 
-        protected void clientHandshake(){
+        protected void clientHandshake() {
 
         }
 
-         protected void clientMainLoop(){
+        protected void clientMainLoop() {
 
-         }
+        }
 
-         @Override
-         public void run() {
+        @Override
+        public void run() {
 
-     }
+        }
 
-}
+    }
 }
 
 
