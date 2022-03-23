@@ -1,9 +1,13 @@
 package MyClient;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.*;
 
 //----------------тут собствено формат сообщения всё что хотим передать
 public class Message {
+    public static final Logger LOGGERClientMessange = LoggerFactory.getLogger(ClientServer.class);
     String string;
     TypeMesange typeMesange;
     static public int countId;
@@ -12,6 +16,8 @@ public class Message {
         this.string = string;
         this.typeMesange = typeMesange;
         countId ++;
+        LOGGERClientMessange.info("Сформировано новое сообщение");
+
     }
 
     public String getString() {
