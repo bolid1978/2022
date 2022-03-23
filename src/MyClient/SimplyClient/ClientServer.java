@@ -1,6 +1,9 @@
-package MyClient;
+package MyClient.SimplyClient;
 
-import SockeHTTP.SocketHtt;
+import MyClient.Connect;
+import MyClient.ConsolHelper;
+import MyClient.Message;
+import MyClient.TypeMesange;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +57,10 @@ public class ClientServer {
 
 
         protected void clientHandshake() {
+            ConsolHelper.write("Введите имя пользователя");
+            String userName = ConsolHelper.read();
+            Message message =  new Message(userName, TypeMesange.USER_NAME);
+            connection.send(message);
 
         }
 

@@ -18,6 +18,19 @@ public class ConsolHelper {
         System.out.println(str);
     }
 
+    public static  String read(){
+
+    
+        try {
+            return in.readLine();
+        } catch (IOException e) {
+            System.out.println("Не удалось ввести данные");
+            LOGGERConsolHelper.error("Не удалось ввести данные");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static int intPort() {
 
         System.setIn(System.in);
