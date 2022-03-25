@@ -1,15 +1,14 @@
 package MyClient.SimplyClient;
 
-import MyClient.Connect;
-import MyClient.ConsolHelper;
-import MyClient.Message;
-import MyClient.TypeMesange;
+import MyClient.*;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLOutput;
 
 public class ClientServer {
     public static final Logger LOGGERClientServer = LoggerFactory.getLogger(ClientServer.class);
@@ -73,12 +72,12 @@ public class ClientServer {
         }
 
 
-        protected void clientHandshake() throws IOException {
+        protected void clientHandshake() throws Exit {
+            LOGGERClientServer.info("clientHandshake start");
             while (true) {
                 ConsolHelper.write("Введите имя пользователя или exit для выхода");
-
                 String userName = ConsolHelper.read();
-                if (userName.toUpperCase().matches("EXIT")) throw new IOException();
+                if (userName.toUpperCase().matches("EXIT")) throw new Exit();
                 message = new Message(userName, TypeMesange.USER_NAME);
                 connection.send(message);
 
@@ -99,6 +98,7 @@ public class ClientServer {
                     } else System.out.println("Пароль не принят");
                 }
             }
+
         }
 
         protected boolean inputPassword() {
@@ -123,17 +123,25 @@ public class ClientServer {
             String ip = ConsolHelper.stringIp();
             ConsolHelper.write("Введите порт");
             int port = ConsolHelper.intPort();
+            ConsolHelper.write("Подождите устанавливается соединение");
             try {
                 Socket socket = new Socket(ip, port);
                 LOGGERClientServer.info("Soccet create");
                 Connect connect = new Connect(socket);
-                LOGGERClientServer.info("Connect creat in SocketThread");
+                LOGGERClientServer.info("Connect create  in SocketThread");
                 //----потом запускаем проверку пароля и основной цыкл
                 clientHandshake();
                 //  clientMainLoop();
-            } catch (IOException e) {
+            }
+            catch (Exit e) {
+                System.out.println("EXIT соединение с чатом не установлено");
+                LOGGERClientServer.error("EXIT соединение с чатом не установлено");
+
+            }
+            catch (IOException e) {
+                System.out.println("Нет соединения с сервером");
                 LOGGERClientServer.error("Soccet No create");
-                e.printStackTrace();
+
 
             }
 
