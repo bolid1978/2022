@@ -33,7 +33,7 @@ public class ConsolHelper {
 
     public static int intPort() {
 
-        System.setIn(System.in);
+      //  System.setIn(System.in);
         int port = -1;
         String str;
 

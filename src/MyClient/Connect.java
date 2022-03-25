@@ -12,13 +12,15 @@ public class Connect {
     private static final Logger LOGGERconnect = LoggerFactory.getLogger(Connect.class);
 
     private final Socket socket;
-    private final ObjectInput in;
     private final ObjectOutput out;
+    private ObjectInput in =  null;
 
     public Connect(Socket socket) throws IOException {
+
         this.socket = socket;
-        this.in = new ObjectInputStream(socket.getInputStream());
         this.out = new ObjectOutputStream(socket.getOutputStream());
+        in = new ObjectInputStream(socket.getInputStream());
+
     }
 
     //----отсылает message метод синхронизейд

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLOutput;
@@ -15,8 +16,18 @@ public class ClientServer {
     protected Connect connection;
     private volatile boolean clientConnected = false;
 
-    public static void main(String[] args) {
-        DOMConfigurator.configure("C:\\Users\\bolid\\IdeaProjects\\Test\\src\\MyClient\\properties\\loger.xml");
+    public static void main(String[] args)  {
+      //  DOMConfigurator.configure("C:\\Users\\bolid\\IdeaProjects\\Test\\src\\MyClient\\properties\\loger.xml");
+
+        try {
+            File currentDir = new File(".");
+
+            DOMConfigurator.configure(currentDir.getCanonicalPath() + "\\src\\MyClient\\properties\\loger.xml");
+        } catch (IOException e) {
+            System.out.println("Не найден путь к логеру");
+            e.printStackTrace();
+        }
+
         ClientServer clientServer = new ClientServer();
         clientServer.startClient();
 
@@ -127,7 +138,8 @@ public class ClientServer {
             try {
                 Socket socket = new Socket(ip, port);
                 LOGGERClientServer.info("Soccet create");
-                Connect connect = new Connect(socket);
+                ConsolHelper.write("Соккет запущен");
+                connection = new Connect(socket);
                 LOGGERClientServer.info("Connect create  in SocketThread");
                 //----потом запускаем проверку пароля и основной цыкл
                 clientHandshake();
