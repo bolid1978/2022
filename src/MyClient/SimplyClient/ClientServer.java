@@ -32,6 +32,15 @@ public class ClientServer {
         socketThread.setDaemon(true);
         socketThread.start();
 
+        synchronized (this) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
     public class SocketThread extends Thread {
@@ -54,8 +63,8 @@ public class ClientServer {
 
         }
 
-        //---------не понятная фигня что то снхронизирует
-        protected void notifyConnectionStatusChanged(boolean clientConnected ) {
+        //---------'эта фигня освобождает обЬек от вайт то есть по идеи пока не законектиться или не вылетит к клиенту нет доступа'
+        protected void notifyConnectionStatusChanged(boolean clientConnected) {
             synchronized (ClientServer.this) {
                 ClientServer.this.notify();
                 ClientServer.this.clientConnected = clientConnected;
@@ -121,10 +130,11 @@ public class ClientServer {
                 LOGGERClientServer.info("Connect creat in SocketThread");
                 //----потом запускаем проверку пароля и основной цыкл
                 clientHandshake();
-                clientMainLoop();
+                //  clientMainLoop();
             } catch (IOException e) {
+                LOGGERClientServer.error("Soccet No create");
                 e.printStackTrace();
-                LOGGERClientServer.warn("Soccet No create");
+
             }
 
 
