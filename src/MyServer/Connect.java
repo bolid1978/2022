@@ -18,7 +18,6 @@ public class Connect {
     public Connect(Socket socket) {
         try {
             File currentDir = new File(".");
-
             DOMConfigurator.configure(currentDir.getCanonicalPath() + "\\src\\MyClient\\properties\\loger.xml");
         } catch (IOException e) {
             System.out.println("Не найден путь к логеру");
@@ -29,6 +28,7 @@ public class Connect {
 
             in = socket.getInputStream();
             out = socket.getOutputStream();
+
         } catch (IOException e) {
             System.out.println("Не формированы потоки");
             e.printStackTrace();

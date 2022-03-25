@@ -56,7 +56,7 @@ public class Server {
 
         public Handler(Socket socket) {
             this.socket = socket;
-            newConnect = new Connect(socket);
+
         }
 
         @Override
@@ -64,11 +64,10 @@ public class Server {
             LOGGER.info("Метод RUN запущен");
             try {
                 while (true){
-                    while(true) {
-                        newConnect.sentOut("Привет".getBytes());
-                    }
-               // String resiver =  Arrays.toString(newConnect.getIn());
-               // System.out.println(resiver);
+                    newConnect = new Connect(socket);
+                    newConnect.sentOut("gfsdgd".getBytes());
+//                String resiver =  Arrays.toString(newConnect.getIn());
+//                System.out.println(resiver);
                 }
 
             } catch (IOException e) {
