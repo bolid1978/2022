@@ -20,7 +20,7 @@ public class ConsolHelper {
 
     public static  String read(){
 
-    
+
         try {
             return in.readLine();
         } catch (IOException e) {
