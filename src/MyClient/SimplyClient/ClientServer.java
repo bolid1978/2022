@@ -93,6 +93,7 @@ public class ClientServer {
                 connection.send(message);
 
                 message = connection.receive();
+                System.out.println(message);
                 //-------если такое имя Не найдено он его прописывает то есть логин и пароль
                 if (message.getTypeMesange().equals(TypeMesange.NAME_NO_ACCEPTED)) {
                     ConsolHelper.write("Такого пользователя не существует введите пароль для нового пользователя");
@@ -138,7 +139,6 @@ public class ClientServer {
             try {
                 Socket socket = new Socket(ip, port);
                 LOGGERClientServer.info("Soccet create");
-                ConsolHelper.write("Соккет запущен");
                 connection = new Connect(socket);
                 LOGGERClientServer.info("Connect create  in SocketThread");
                 //----потом запускаем проверку пароля и основной цыкл

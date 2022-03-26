@@ -13,7 +13,7 @@
 
     <!--����� � ����-->
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="c:\\1\\logMy.txt"/>
+        <param name="File" value="c:\\1\\log.txt"/>
         <param name="maxFileSize" value="1KB"/>
         <param name="Append" value="true"/>
         <param name="Encoding" value="UTF-8"/>

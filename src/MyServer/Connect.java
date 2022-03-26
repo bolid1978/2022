@@ -3,16 +3,13 @@ package MyServer;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 
 public class Connect {
     Socket socket ;
-    InputStream in;
-    OutputStream out;
+    ObjectInputStream in;
+    ObjectOutputStream out;
     public static final Logger LOGGERconect = org.apache.log4j.Logger.getLogger(Connect.class);
 
     public Connect(Socket socket) {
@@ -26,8 +23,8 @@ public class Connect {
         this.socket = socket;
         try {
 
-            in = socket.getInputStream();
-            out = socket.getOutputStream();
+            in = new ObjectInputStream (socket.getInputStream());
+            out = new ObjectOutputStream(socket.getOutputStream());
 
         } catch (IOException e) {
             System.out.println("Не формированы потоки");
@@ -35,11 +32,26 @@ public class Connect {
         }
     }
 
-    public byte[] getIn() throws IOException {
-        return in.readAllBytes();
+    public MyClient.Message getIn() {
+        try {
+            MyClient.Message message = (MyClient.Message) in.readObject();
+            return message;
+        } catch (IOException e) {
+            LOGGERconect.info("не отправился обЬект message");
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            LOGGERconect.info("не найден обЬект message");
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public  void sentOut(byte[] sent) throws IOException {
-        out.write(sent);
+    public  void sentOut(Message message)  {
+        try {
+            out.writeObject(message);
+        } catch (IOException e) {
+            LOGGERconect.info("не отправился обЬект message");
+            e.printStackTrace();
+        }
     }
 }
