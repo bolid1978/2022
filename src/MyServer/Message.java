@@ -1,6 +1,7 @@
 package MyServer;
 
 import MyClient.SimplyClient.ClientServer;
+import MyClient.TypeMesange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,10 +11,10 @@ import java.io.Serializable;
 public class Message implements Serializable {
     public static final Logger LOGGERClientMessange = LoggerFactory.getLogger(ClientServer.class);
     String string;
-    MyServer.TypeMesange typeMesange;
+    MyClient.TypeMesange typeMesange;
     static public int countId;
 
-    public Message(String string, MyServer.TypeMesange typeMesange) {
+    public Message(String string, MyClient.TypeMesange typeMesange) {
         this.string = string;
         this.typeMesange = typeMesange;
         countId ++;
