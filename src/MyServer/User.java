@@ -1,6 +1,11 @@
 package MyServer;
 
 public class User {
+
+    private String name;
+    private String password;
+    private Connect connect;
+
     String name;
     String password;
     Connect connect;
