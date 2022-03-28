@@ -2,7 +2,7 @@ package MyServer;
 
 public class User {
 
-    private String name;
+    protected String name;
     private String password;
     private Connect connect;
 
