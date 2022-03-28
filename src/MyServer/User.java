@@ -1,6 +1,9 @@
 package MyServer;
 
 public class User {
+    String name;
+    String password;
+    Connect connect;
     private String name;
     private String password;
     private Connect connect;

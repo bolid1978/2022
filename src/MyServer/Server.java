@@ -16,9 +16,11 @@ import java.util.Map;
 public class Server {
 
     public static final Logger LOGGER = org.apache.log4j.Logger.getLogger(Server.class);
+    static protected Map<Integer,User> clientMap = new HashMap<Integer,User>();
+    static int counIntegerUser ;
     static protected Map<String,User> clientMap = new HashMap<String,User>();
     Message message;
-    
+
     public static void main(String[] args) {
 
         try {
@@ -48,6 +50,24 @@ public class Server {
             LOGGER.info("Сервер не запущен");
             e.printStackTrace();
         }
+    }
+
+    private boolean searchName(Message message){
+        return  message.getTypeMesange().equals(TypeMesange.USER_NAME);
+
+    }
+
+    private String serverHandshake(Connect connection){
+      //---------мы тут делаем рукопожатие
+        Message message = connection.getIn();
+        System.out.println(message);
+        if (searchName(message)) {
+            String nameUser = message.getString();
+            //----искать в мапе имя пользователя
+
+        }
+
+        return null;
     }
 
     private boolean searchName(Message message){
