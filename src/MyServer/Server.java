@@ -1,5 +1,7 @@
 package MyServer;
 
+import MyClient.Message;
+import MyClient.TypeMesange;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
@@ -7,11 +9,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Server {
 
     public static final Logger LOGGER = org.apache.log4j.Logger.getLogger(Server.class);
+    static protected Map<String,User> clientMap = new HashMap<String,User>();
+    Message message;
     
     public static void main(String[] args) {
 
@@ -44,6 +50,54 @@ public class Server {
         }
     }
 
+    private boolean searchName(Message message){
+        return  message.getTypeMesange().equals(TypeMesange.USER_NAME);
+
+    }
+    private boolean searchPassword(Message message){
+        return  message.getTypeMesange().equals(TypeMesange.USER_PASSWORD);
+
+    }
+
+    private String serverHandshake(Connect connection){
+      //---------мы тут делаем рукопожатие
+         message = connection.getIn();
+        System.out.println(message);
+        if (searchName(message)) {
+            String nameUser = message.getString();
+            //----искать в мапе имя пользователя
+            if (clientMap.containsKey(nameUser)){
+                //--------если пользователь найден
+                message = new Message("Пользователь найден введите пароль",TypeMesange.NAME_ACCEPTED);
+
+            }
+            else {
+                //----------если пользователь не найден
+                message = new Message("Пользователь не найден введите пароль",TypeMesange.NAME_NO_ACCEPTED);
+                connection.sentOut(message);
+                message = connection.getIn();
+                if(searchPassword(message)){
+                    String password = message.getString();
+                    //--------если сообщение с паролем
+                    message = new Message("пароль установлен",TypeMesange.USER_PASSWORD_ACCEPT);
+                    connection.sentOut(message);
+                    User user = new User();
+                    user.setConnect(connection) ;
+                    user.setName(nameUser);
+                    user.setPassword(password);
+                    clientMap.put(nameUser,user);
+
+                }
+                else {
+                    //--------если ссобщение без пароля
+                }
+            }
+
+        }
+
+        return null;
+    }
+
      private class Handler extends Thread{
         Socket socket;
         Connect newConnect;
@@ -58,8 +112,10 @@ public class Server {
             LOGGER.info("Метод RUN запущен");
 
                 newConnect = new Connect(socket);
+                 System.out.println("Установлено соединение с сокетом");
+                serverHandshake(newConnect);
                 while (true){
-                System.out.println(newConnect.getIn());
+
                 }
                // Message message = new Message("Hello",TypeMesange.NAME_REQUEST);
                // newConnect.sentOut(message);

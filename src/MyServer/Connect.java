@@ -46,7 +46,7 @@ public class Connect {
         return null;
     }
 
-    public  void sentOut(Message message)  {
+    public  void sentOut(MyClient.Message message)  {
         try {
             out.writeObject(message);
         } catch (IOException e) {

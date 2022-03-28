@@ -97,6 +97,7 @@ public class ClientServer {
                 ConsolHelper.write("Введите имя пользователя или exit для выхода");
                 String userName = ConsolHelper.read();
                 if (userName.toUpperCase().matches("EXIT")) throw new Exit();
+
                 message = new Message(userName, TypeMesange.USER_NAME);
                 connection.send(message);
 
@@ -112,6 +113,7 @@ public class ClientServer {
                 }
                 //-----------------если имя найдено
                 else if (message.getTypeMesange().equals(TypeMesange.NAME_ACCEPTED)) {
+                    System.out.println(message.getString());
                     if (inputPassword()) {
                         notifyConnectionStatusChanged(true);
                         break;
