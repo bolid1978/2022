@@ -49,6 +49,14 @@ public class ClientServer {
                 e.printStackTrace();
             }
         }
+        //-------вайт отпуститься как только прошла проверка пароля и можно передавать сообщения
+        //------а отсылаться они будут в нити socketThread в методе луп то есть это как бы начнёт работать паралельно
+          ConsolHelper.write("Введите сообщения для выходна нажмите EXIT");
+        String sendString ;
+        while (!(sendString = ConsolHelper.read()).equalsIgnoreCase("EXIT")){
+            connection.send(new Message(sendString, TypeMesange.TEXT));
+        }
+
 
 
     }
@@ -119,10 +127,7 @@ public class ClientServer {
             message = new Message(namePassword, TypeMesange.USER_PASSWORD);
             connection.send(message);
             message = connection.receive();
-            if (message.getTypeMesange().equals(TypeMesange.USER_PASSWORD_ACCEPT)) {
-                return true;
-            }
-            return false;
+            return message.getTypeMesange().equals(TypeMesange.USER_PASSWORD_ACCEPT);
         }
 
         protected void clientMainLoop() {
