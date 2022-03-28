@@ -1,15 +1,11 @@
 package MyServer;
 
 public class User {
-<<<<<<< HEAD
+
     private String name;
     private String password;
     private Connect connect;
-=======
-    String name;
-    String password;
-    Connect connect;
->>>>>>> origin/twoBranche
+
 
     public String getName() {
         return name;
