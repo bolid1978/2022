@@ -6,12 +6,7 @@ public class User {
     private String password;
     private Connect connect;
 
-    String name;
-    String password;
-    Connect connect;
-    private String name;
-    private String password;
-    private Connect connect;
+
 
     public String getName() {
         return name;
