@@ -61,10 +61,11 @@ public class Connect {
 
     //---принимает message метод синхронизейд
     public Message receive() {
+        Message message = null;
         synchronized (in) {
             try {
-                Message message = (Message) in.readObject();
-                LOGGERconnect.warn("Данные получены в выходной поток");
+                message = (Message) in.readObject();
+
             } catch (ClassNotFoundException e) {
                 LOGGERconnect.warn("Не найден класс Message");
                 e.printStackTrace();
@@ -73,7 +74,7 @@ public class Connect {
                 e.printStackTrace();
             }
         }
-        return null;
+        return message;
     }
 
     //----закрывает потоки и сокет--11--22

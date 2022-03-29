@@ -36,7 +36,8 @@ public class Server {
     }
 
     private void createSocket() {
-        int port = ConsolHelper.setPort();
+        //int port = ConsolHelper.setPort();
+        int port = 900;
         try {
             ServerSocket socketServer = new ServerSocket(port);
             LOGGER.info("Сервер запущен порт " + port);
@@ -78,13 +79,19 @@ public class Server {
             }
             else {
                 //----------если пользователь не найден
+                System.out.println("Пользователь с именем " + nameUser + " не найден");
+                LOGGER.info("Пользователь с именем " + nameUser + " не найден");
+
                 message = new Message("Пользователь не найден введите пароль",TypeMesange.NAME_NO_ACCEPTED);
                 connection.sentOut(message);
+
                 message = connection.getIn();
+                System.out.println(message);
                 if(searchPassword(message)){
                     String password = message.getString();
                     //--------если сообщение с паролем
                     message = new Message("пароль установлен",TypeMesange.USER_PASSWORD_ACCEPT);
+                    System.out.println(message);
                     connection.sentOut(message);
                     User user = new User();
                     user.setConnect(connection) ;
@@ -114,11 +121,12 @@ public class Server {
 
         @Override
         public void run() {
-            LOGGER.info("Метод RUN запущен");
+           // LOGGER.info("Метод RUN запущен");
 
-                newConnect = new Connect(socket);
-                 System.out.println("Установлено соединение с сокетом");
-                serverHandshake(newConnect);
+                 newConnect = new Connect(socket);
+                 LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                 System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                 serverHandshake(newConnect);
                 while (true){
 
                 }

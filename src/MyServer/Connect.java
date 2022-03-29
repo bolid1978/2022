@@ -50,7 +50,7 @@ public class Connect {
         try {
             out.writeObject(message);
         } catch (IOException e) {
-            LOGGERconect.info("не отправился обЬект message");
+            LOGGERconect.info("не отправился обЪект message");
             e.printStackTrace();
         }
     }

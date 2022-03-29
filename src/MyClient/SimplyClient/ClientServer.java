@@ -93,6 +93,7 @@ public class ClientServer {
 
         protected void clientHandshake() throws Exit {
             LOGGERClientServer.info("clientHandshake start");
+
             while (true) {
                 ConsolHelper.write("Введите имя пользователя или exit для выхода");
                 String userName = ConsolHelper.read();
@@ -129,6 +130,7 @@ public class ClientServer {
             message = new Message(namePassword, TypeMesange.USER_PASSWORD);
             connection.send(message);
             message = connection.receive();
+            System.out.println(message);
             return message.getTypeMesange().equals(TypeMesange.USER_PASSWORD_ACCEPT);
         }
 
@@ -138,11 +140,13 @@ public class ClientServer {
 
         @Override
         public void run() {
-            ConsolHelper.write("Введите ip адресс");
-            String ip = ConsolHelper.stringIp();
-            ConsolHelper.write("Введите порт");
-            int port = ConsolHelper.intPort();
-            ConsolHelper.write("Подождите устанавливается соединение");
+//            ConsolHelper.write("Введите ip адресс");
+//            String ip = ConsolHelper.stringIp();
+//            ConsolHelper.write("Введите порт");
+//            int port = ConsolHelper.intPort();
+//            ConsolHelper.write("Подождите устанавливается соединение");
+            String ip = "127.0.0.1";
+            int port = 900;
             try {
                 Socket socket = new Socket(ip, port);
                 LOGGERClientServer.info("Soccet create");
