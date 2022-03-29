@@ -58,7 +58,7 @@ public class Server {
         return  message.getTypeMesange().equals(TypeMesange.USER_PASSWORD);
 
     }
-
+//**
     private String serverHandshake(Connect connection){
       //---------мы тут делаем рукопожатие
          message = connection.getIn();
