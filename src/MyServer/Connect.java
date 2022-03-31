@@ -32,7 +32,7 @@ public class Connect {
         }
     }
 
-    public MyClient.Message getIn() {
+    public MyClient.Message getIn() throws Disconnect {
         try {
             MyClient.Message message = (MyClient.Message) in.readObject();
             return message;
@@ -43,11 +43,14 @@ public class Connect {
         catch (IOException e) {
             LOGGERconect.info("не принимаеться объект message");
 
+
             try {
                 socket.close();
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            throw new Disconnect();
            // e.printStackTrace();
         }
         return null;

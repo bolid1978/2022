@@ -63,7 +63,7 @@ public class Server {
 
         }
     }
-    private void serverMainLoop(Connect connection, String userName) {
+    private void serverMainLoop(Connect connection, String userName) throws Disconnect{
         Message messageText;
         try {
 
@@ -78,7 +78,7 @@ public class Server {
                 }
             }
         }
-        catch (NullPointerException e ){
+        catch (NullPointerException  e ){
             LOGGER.error(" объект message не принят");
 
 
@@ -104,7 +104,7 @@ public class Server {
 
     }
      //------рукопажатие и возвращает имя пользователя каторо присоединили
-    private String serverHandshake(Connect connection){
+    private String serverHandshake(Connect connection) throws Disconnect{
         Message message;
         String nameUser = "";
       //---------мы тут делаем рукопожатие
@@ -182,6 +182,10 @@ public class Server {
                       System.out.println("-----RuntimeExeption");
                       e.printStackTrace();
                       System.out.println("-----------------------");
+                  }
+                  catch(Disconnect e){
+
+                      e.disconnect();
                   }
 
         }
