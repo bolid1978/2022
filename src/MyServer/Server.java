@@ -83,19 +83,19 @@ public class Server {
 
 
     }
-
+      //--------отсылает месагу всем клиентам
     void sendBroadcastMessage(Message message) {
 
         for (Map.Entry<String,User> el : clientMap.entrySet() ){
                el.getValue().getConnect().sentOut(message);
         }
     }
-
-
+     //--------проверяет тип сообщения на USER_NAME
     private boolean searchName(Message message){
         return  message.getTypeMesange().equals(TypeMesange.USER_NAME);
 
     }
+    //---------проверяет тип сообщения на USER_PASSWORD
     private boolean searchPassword(Message message){
         return  message.getTypeMesange().equals(TypeMesange.USER_PASSWORD);
 
