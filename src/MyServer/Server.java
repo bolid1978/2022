@@ -81,6 +81,7 @@ public class Server {
         catch (NullPointerException e ){
             LOGGER.error(" объект message не принят");
 
+
         }
 
 

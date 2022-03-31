@@ -91,7 +91,7 @@ public class ClientServer {
         }
 
 
-        protected void clientHandshake() throws Exit {
+        protected void clientHandshake() throws Exit{
             LOGGERClientServer.info("clientHandshake start");
 
             while (true) {
@@ -161,6 +161,8 @@ public class ClientServer {
                 LOGGERClientServer.error("EXIT соединение с чатом не установлено");
 
             }
+
+
             catch (IOException e) {
                 System.out.println("Нет соединения с сервером");
                 LOGGERClientServer.error("Soccet No create");

@@ -60,7 +60,7 @@ public class Connect {
     }
 
     //---принимает message метод синхронизейд
-    public Message receive() {
+    public Message receive() throws Discconect {
         Message message = null;
         synchronized (in) {
             try {
@@ -71,7 +71,7 @@ public class Connect {
                 e.printStackTrace();
             } catch (IOException e) {
                 LOGGERconnect.warn("Не удалось передать данные в входной поток");
-                e.printStackTrace();
+                throw new Discconect();
             }
         }
         return message;

@@ -41,7 +41,8 @@ public class Connect {
             e.printStackTrace();
         }
         catch (IOException e) {
-            LOGGERconect.info("не отправился объект message");
+            LOGGERconect.info("не принимаеться объект message");
+
             try {
                 socket.close();
             } catch (IOException ex) {
