@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BrokenBarrierException;
@@ -73,6 +74,7 @@ public class Server {
                 messageText = connection.getIn();
                 if (messageText.getTypeMesange() == TypeMesange.TEXT) {
                     sendBroadcastMessage(messageText);
+                    System.out.println("Пользователь " + userName + ": написал " + messageText.getString() );
                 } else {
                     System.out.println("Ошибка принятия сообщения");
                 }
@@ -80,8 +82,6 @@ public class Server {
         }
         catch (NullPointerException  e ){
             LOGGER.error(" объект message не принят");
-
-
         }
 
 
@@ -162,6 +162,7 @@ public class Server {
 
         @Override
         public void run() {
+            String user = "";
            // LOGGER.info("Метод RUN запущен");
                   try {
 
@@ -169,7 +170,7 @@ public class Server {
                       newConnect = new Connect(socket);
                       LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
                       System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
-                      String user = serverHandshake(newConnect);
+                      user = serverHandshake(newConnect);
                       notifyUsers(newConnect, user);
                       serverMainLoop(newConnect, user);
                       // дальше по идеии нужно обработать все эксепшены но я их обрабатывал в каждом методе отдельно  по методам
@@ -185,7 +186,12 @@ public class Server {
                   }
                   catch(Disconnect e){
 
-                      e.disconnect();
+                      e.disconnect(user + ".Пользователь отключён от чата");
+                      try {
+                          socket.close();
+                      } catch (IOException ex) {
+                          ex.printStackTrace();
+                      }
                   }
 
         }

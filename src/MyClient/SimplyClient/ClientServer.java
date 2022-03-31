@@ -51,7 +51,7 @@ public class ClientServer {
         }
         //-------вайт отпуститься как только прошла проверка пароля и можно передавать сообщения
         //------а отсылаться они будут в нити socketThread в методе луп то есть это как бы начнёт работать паралельно
-          ConsolHelper.write("Введите сообщения для выходна нажмите EXIT");
+        ConsolHelper.write("Введите сообщения для выходна нажмите EXIT");
         String sendString ;
         while (!(sendString = ConsolHelper.read()).equalsIgnoreCase("EXIT")){
             connection.send(new Message(sendString, TypeMesange.TEXT));
@@ -135,7 +135,13 @@ public class ClientServer {
         }
 
         protected void clientMainLoop() {
-
+            Message message;
+           while (true){
+               message = connection.receive();
+               if(message.getTypeMesange() == TypeMesange.TEXT){
+                   System.out.println(message.getString());
+               }
+           }
         }
 
         @Override
@@ -154,17 +160,23 @@ public class ClientServer {
                 LOGGERClientServer.info("Connect create  in SocketThread");
                 //----потом запускаем проверку пароля и основной цыкл
                 clientHandshake();
-                //  clientMainLoop();
+                clientMainLoop();
             }
             catch (Exit e) {
-                System.out.println("EXIT соединение с чатом не установлено");
+
                 LOGGERClientServer.error("EXIT соединение с чатом не установлено");
+                e.printStackTrace();
+
+            }
+            catch (RuntimeException e) {
+                LOGGERClientServer.error("RuntimeException соединение с чатом не установлено");
+                e.printStackTrace();
 
             }
 
 
             catch (IOException e) {
-                System.out.println("Нет соединения с сервером");
+                e.printStackTrace();
                 LOGGERClientServer.error("Soccet No create");
 
 
