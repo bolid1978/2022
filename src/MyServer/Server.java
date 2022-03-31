@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BrokenBarrierException;
 
 
 public class Server {
@@ -160,17 +162,27 @@ public class Server {
         @Override
         public void run() {
            // LOGGER.info("Метод RUN запущен");
+                  try {
 
-                       newConnect = new Connect(socket);
-                       LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
-                       System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
-                       String user = serverHandshake(newConnect);
-                       notifyUsers(newConnect, user);
-                       serverMainLoop(newConnect, user);
-                       // Message message = new Message("Hello",TypeMesange.NAME_REQUEST);
-                       // newConnect.sentOut(message);
 
-               //если соединение закрылось
+                      newConnect = new Connect(socket);
+                      LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                      System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                      String user = serverHandshake(newConnect);
+                      notifyUsers(newConnect, user);
+                      serverMainLoop(newConnect, user);
+                      // дальше по идеии нужно обработать все эксепшены но я их обрабатывал в каждом методе отдельно  по методам
+                      // не надо было наверное блин . Попробывать отловить и описать все в каждом методе отдельно
+                  }
+                  //-------все рантаймы сюда в процессе видно будет---------все не рантайм там в методах то есть IOexeption например
+                  // в методах остались и какие то рантайм сюда вылятят в процесс хз как и когда NullpointEXption ArifmeticExeption и т д
+
+                  catch (RuntimeException e){
+                      System.out.println("-----RuntimeExeption");
+                      e.printStackTrace();
+                      System.out.println("-----------------------");
+                  }
+
         }
 
     }
