@@ -18,7 +18,7 @@ public class Server {
     public static final Logger LOGGER = org.apache.log4j.Logger.getLogger(Server.class);
     static protected Map<String,User> clientMap = new HashMap<String,User>();
 
-    Message message;
+
 
     public static void main(String[] args) {
 //
@@ -52,8 +52,44 @@ public class Server {
         }
     }
 
+    private void notifyUsers(Connect connection, String userName) {
+        Message message = new Message("Пользователь " + userName + "присоединился к чату", TypeMesange.TEXT);
+        for (Map.Entry<String,User> el : clientMap.entrySet() ){
+            if(!el.getKey().equals(userName)){
+                connection.sentOut(message);
+            }
+
+        }
+    }
+    private void serverMainLoop(Connect connection, String userName) {
+        Message messageText;
+        try {
 
 
+            while (true) {
+
+                messageText = connection.getIn();
+                if (messageText.getTypeMesange() == TypeMesange.TEXT) {
+                    sendBroadcastMessage(messageText);
+                } else {
+                    System.out.println("Ошибка принятия сообщения");
+                }
+            }
+        }
+        catch (NullPointerException e ){
+            LOGGER.error(" объект message не принят");
+
+        }
+
+
+    }
+
+    void sendBroadcastMessage(Message message) {
+
+        for (Map.Entry<String,User> el : clientMap.entrySet() ){
+               el.getValue().getConnect().sentOut(message);
+        }
+    }
 
 
     private boolean searchName(Message message){
@@ -64,13 +100,15 @@ public class Server {
         return  message.getTypeMesange().equals(TypeMesange.USER_PASSWORD);
 
     }
-
+     //------рукопажатие и возвращает имя пользователя каторо присоединили
     private String serverHandshake(Connect connection){
+        Message message;
+        String nameUser = "";
       //---------мы тут делаем рукопожатие
          message = connection.getIn();
         System.out.println(message);
         if (searchName(message)) {
-            String nameUser = message.getString();
+            nameUser = message.getString();
             //----искать в мапе имя пользователя
             if (clientMap.containsKey(nameUser)){
                 //--------если пользователь найден
@@ -107,7 +145,7 @@ public class Server {
 
         }
 
-        return null;
+        return nameUser;
     }
 
      private class Handler extends Thread{
@@ -123,15 +161,17 @@ public class Server {
         public void run() {
            // LOGGER.info("Метод RUN запущен");
 
-                 newConnect = new Connect(socket);
-                 LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
-                 System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
-                 serverHandshake(newConnect);
-                while (true){
+                       newConnect = new Connect(socket);
+                       LOGGER.info("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                       System.out.println("Установлено соединение с сокетом " + newConnect.socket.getPort());
+                       String user = serverHandshake(newConnect);
+                       notifyUsers(newConnect, user);
+                       serverMainLoop(newConnect, user);
+                       // Message message = new Message("Hello",TypeMesange.NAME_REQUEST);
+                       // newConnect.sentOut(message);
 
-                }
-               // Message message = new Message("Hello",TypeMesange.NAME_REQUEST);
-               // newConnect.sentOut(message);
+               //если соединение закрылось
         }
+
     }
 }

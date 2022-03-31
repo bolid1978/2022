@@ -36,12 +36,18 @@ public class Connect {
         try {
             MyClient.Message message = (MyClient.Message) in.readObject();
             return message;
-        } catch (IOException e) {
-            LOGGERconect.info("не отправился обЬект message");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        }catch (ClassNotFoundException e) {
             LOGGERconect.info("не найден обЬект message");
             e.printStackTrace();
+        }
+        catch (IOException e) {
+            LOGGERconect.info("не отправился объект message");
+            try {
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+           // e.printStackTrace();
         }
         return null;
     }
