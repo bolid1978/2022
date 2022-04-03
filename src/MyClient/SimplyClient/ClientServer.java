@@ -146,45 +146,48 @@ public class ClientServer {
 
         @Override
         public void run() {
+            String strartString = "";
+            while (!strartString.equalsIgnoreCase("EXIT")) {
+
+
 //            ConsolHelper.write("Введите ip адресс");
 //            String ip = ConsolHelper.stringIp();
 //            ConsolHelper.write("Введите порт");
 //            int port = ConsolHelper.intPort();
 //            ConsolHelper.write("Подождите устанавливается соединение");
-            String ip = "127.0.0.1";
-            int port = 900;
-            try {
-                Socket socket = new Socket(ip, port);
-                LOGGERClientServer.info("Soccet create");
-                connection = new Connect(socket);
-                LOGGERClientServer.info("Connect create  in SocketThread");
-                //----потом запускаем проверку пароля и основной цыкл
-                clientHandshake();
-                clientMainLoop();
+                String ip = "127.0.0.1";
+                int port = 900;
+                try {
+                    Socket socket = new Socket(ip, port);
+                    LOGGERClientServer.info("Soccet create");
+                    connection = new Connect(socket);
+                    LOGGERClientServer.info("Connect create  in SocketThread");
+                    //----потом запускаем проверку пароля и основной цыкл
+                    clientHandshake();
+                    clientMainLoop();
+                } catch (Exit e) {
+
+                    LOGGERClientServer.error("EXIT соединение с чатом не установлено");
+                    e.printStackTrace();
+
+                } catch (RuntimeException e) {
+                    LOGGERClientServer.error("RuntimeException соединение с чатом не установлено");
+                    e.printStackTrace();
+
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    LOGGERClientServer.error("Soccet No create");
+                    System.out.println("Не удалось установить соединение с скетом попробуйте ещё раз?");
+                    strartString = ConsolHelper.read();
+
+
+
+                }
+
+
             }
-            catch (Exit e) {
-
-                LOGGERClientServer.error("EXIT соединение с чатом не установлено");
-                e.printStackTrace();
-
-            }
-            catch (RuntimeException e) {
-                LOGGERClientServer.error("RuntimeException соединение с чатом не установлено");
-                e.printStackTrace();
-
-            }
-
-
-            catch (IOException e) {
-                e.printStackTrace();
-                LOGGERClientServer.error("Soccet No create");
-
-
-            }
-
-
+            System.exit(0);
         }
-
     }
 
 

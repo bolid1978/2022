@@ -30,8 +30,7 @@ public class Connect {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        this.out = new ObjectOutputStream(socket.getOutputStream());
-//        ObjectInput objectInput  = new ObjectInputStream(socket.getInputStream());
+
 
         try {
             out = new ObjectOutputStream(outputStream);
