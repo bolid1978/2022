@@ -167,31 +167,33 @@ public class ClientServer {
                     clientMainLoop();
                 } catch (Exit e) {
 
-                    LOGGERClientServer.error("EXIT соединение с чатом не установлено");
-                    e.printStackTrace();
+                LOGGERClientServer.error("EXIT соединение с чатом не установлено");
+                e.printStackTrace();
 
-                } catch (RuntimeException e) {
-                    LOGGERClientServer.error("RuntimeException соединение с чатом не установлено");
-                    e.printStackTrace();
+            }
+            catch (RuntimeException e) {
+                LOGGERClientServer.error("RuntimeException соединение с чатом не установлено");
+                e.printStackTrace();
 
-                } catch (IOException e) {
-                    //e.printStackTrace();
-                    LOGGERClientServer.error("Soccet No create");
-                    System.out.println("Не удалось установить соединение с скетом попробуйте ещё раз?");
-                    strartString = ConsolHelper.read();
+            }
 
 
-
-                }
+            catch (IOException e) {
+                e.printStackTrace();
+                LOGGERClientServer.error("Soccet No create");
 
 
             }
-            System.exit(0);
+
+
         }
+
     }
-
-
+    }
 }
+
+
+
 
 
 
