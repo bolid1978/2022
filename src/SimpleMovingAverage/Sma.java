@@ -3,22 +3,12 @@ package SimpleMovingAverage;
 //https://andrewlock.net/creating-a-simple-moving-average-calculator-in-csharp-1-a-simple-moving-average-calculator/
 //https://exceltable.com/formuly/formula-skolzyashchey-sredney?
 public class Sma {
-    static int[] a = new int[]{
-            10,
-            5,
-            8,
-            7,
-            58,
-            45,
-            4,
-            12,
-            6,
-            9,
-
-
-    };
+    static int[] a = new int[]{10, 5, 8, 7, 58, 45, 4, 12, 6, 9};
     static int[] b =  new int[10];
-    static boolean flagAinB = true;
+    static boolean flagAinB = true; // указывает какой массив будет рабочий, а в каком предыдущие данные
+    // как бы делаем очередь на основе двух массивом
+
+
 
 
     public static void main(String[] args) {
@@ -33,10 +23,9 @@ public class Sma {
 
 
     }
-
+        //  --- средние с окном 10
         static double adjustment(int currentAdjustment){
         int[] temp ;
-
         //заполняем массив A или B в зависимости от флага
         if (flagAinB){
             for (int i = 0,j = 1; j < 10; i++,j ++) {
@@ -57,12 +46,13 @@ public class Sma {
             temp = a;
         }
 
+
         //вычисляем среднее
         double result = 0;
             for (int i = 0; i < 10 ; i++) {
                 result += temp[i];
             }
-            System.out.println(result+"..........");
+           // System.out.println(result + "..........");
            return result/10;
     }
 }
